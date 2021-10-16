@@ -1,0 +1,11 @@
+.st-droppable {
+  [draggable=true] {
+    cursor: move;
+  }
+  .st-droppable__drop {
+    background-color: #bdf;
+  }
+  .st-droppable__drop--current {
+    background-color: #fdb;
+  }
+}

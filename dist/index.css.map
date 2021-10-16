@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,+BACE,WACF,CACA,kCACE,qBACF,CACA,2CACE,qBACF","file":"index.css","sourcesContent":[".st-droppable [draggable=true] {\n  cursor: move;\n}\n.st-droppable .st-droppable__drop {\n  background-color: #bdf;\n}\n.st-droppable .st-droppable__drop--current {\n  background-color: #fdb;\n}"]}
