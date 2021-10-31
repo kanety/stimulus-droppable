@@ -3,10 +3,10 @@ describe('callbacks', () => {
     document.body.innerHTML = `
       <div data-controller="droppable">
         <p draggable="true">
-          <span>Draggable content 1</span>
+          <span>Draggable 1</span>
         </p>
         <p data-droppable-target="drop">
-          <span>Droppable content 1</span>
+          <span>Droppable 1</span>
         </p>
       </div>
     `;
@@ -38,16 +38,16 @@ describe('callbacks', () => {
   });
 
   beforeEach(() => {
-    $('p[draggable]').dispatchEvent(new CustomEvent('dragstart', { bubbles: true }));
+    $('[draggable]').dispatchEvent(mockEvent('dragstart'));
   });
 
   it('runs callbacks', () => {
-    $('p[draggable]').dispatchEvent(new CustomEvent('drag', { bubbles: true }));
-    $('p[data-droppable-target]').dispatchEvent(new CustomEvent('dragenter', { bubbles: true }));
-    $('p[data-droppable-target]').dispatchEvent(new CustomEvent('dragover', { bubbles: true }));
-    $('p[data-droppable-target]').dispatchEvent(new CustomEvent('dragleave', { bubbles: true }));
-    $('p[data-droppable-target]').dispatchEvent(new CustomEvent('drop', { bubbles: true }));
-    $('p[draggable]').dispatchEvent(new CustomEvent('dragend', { bubbles: true }));
+    $('[draggable]').dispatchEvent(mockEvent('drag'));
+    $('[data-droppable-target]').dispatchEvent(mockEvent('dragenter'));
+    $('[data-droppable-target]').dispatchEvent(mockEvent('dragover'));
+    $('[data-droppable-target]').dispatchEvent(mockEvent('dragleave'));
+    $('[data-droppable-target]').dispatchEvent(mockEvent('drop'));
+    $('[draggable]').dispatchEvent(mockEvent('dragend'));
 
     expect(messages).toEqual(['start', 'drag', 'enter', 'over', 'leave', 'drop', 'end']);
   });

@@ -23,49 +23,49 @@
   <h1>Callbacks</h1>
   <div class="st-droppable" data-controller="droppable">
     <p draggable="true">
-      <span>Draggable content 1</span>
+      <span>Draggable 1</span>
     </p>
     <p draggable="true">
-      <span>Draggable content 2</span>
+      <span>Draggable 2</span>
     </p>
     <p data-droppable-target="drop">
-      <span>Droppable content 1</span>
+      <span>Droppable 1</span>
     </p>
     <p data-droppable-target="drop">
-      <span>Droppable content 2</span>
+      <span>Droppable 2</span>
     </p>
     <p data-droppable-target="drop">
-      <span>Droppable content 3</span>
+      <span>Droppable 3</span>
     </p>
     <p data-droppable-target="drop">
-      <span>Droppable content 4</span>
+      <span>Droppable 4</span>
     </p>
     <p data-droppable-target="drop">
-      <span>Droppable content 5</span>
+      <span>Droppable 5</span>
     </p>
   </div>
   <script>
     let element = document.querySelector('[data-controller="droppable"]');
     element.addEventListener('droppable:start', e => {
-      console.log('start: ' + e.detail.drag.innerText);
+      console.log('start: ', e.detail);
     });
     element.addEventListener('droppable:drag', e => {
-      console.log('drag: ' + e.detail.drag.innerText);
+      console.log('drag: ',  e.detail);
     });
     element.addEventListener('droppable:enter', e => {
-      console.log('enter: ' + e.detail.drop.innerText);
+      console.log('enter: ', e.detail);
     });
     element.addEventListener('droppable:over', e => {
-      console.log('over: ' + e.detail.drop.innerText);
+      console.log('over: ', e.detail);
     });
     element.addEventListener('droppable:leave', e => {
-      console.log('leave: ' + e.detail.drop.innerText);
+      console.log('leave: ', e.detail);
     });
     element.addEventListener('droppable:drop', e => {
-      console.log('drop: ' + e.detail.drop.innerText);
+      console.log('drop: ', e.detail);
     });
     element.addEventListener('droppable:end', e => {
-      console.log('end: ' + e.detail.drag.innerText);
+      console.log('end: ', e.detail);
     });
 
   </script>
