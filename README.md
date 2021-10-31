@@ -70,29 +70,29 @@ Run callbacks when draggable element is dragged or dropped:
 ```javascript
 let element = document.querySelector('[data-controller="droppable"]');
 element.addEventListener('droppable:start', e => {
-  console.log("dragstart: " + e.detail.drag);
+  console.log("dragstart: ", e.detail.drag);
 });
 element.addEventListener('droppable:drag', e => {
-  console.log("drag: " + e.detail.drag);
+  console.log("drag: ",.detail.drag);
 });
 element.addEventListener('droppable:enter', e => {
-  console.log("dragenter: " + e.detail.drag);
-  console.log("dragenter: " + e.detail.drop);
+  console.log("dragenter: ", e.detail.drag);
+  console.log("dragenter: ", e.detail.drop);
 });
 element.addEventListener('droppable:over', e => {
-  console.log("dragover: " + e.detail.drag);
-  console.log("dragover: " + e.detail.drop);
+  console.log("dragover: ", e.detail.drag);
+  console.log("dragover: ", e.detail.drop);
 });
 element.addEventListener('droppable:leave', e => {
-  console.log("dragleave: " + e.detail.drag);
-  console.log("dragleave: " + e.detail.drop);
+  console.log("dragleave: ", e.detail.drag);
+  console.log("dragleave: ", e.detail.drop);
 });
 element.addEventListener('droppable:drop', e => {
-  console.log("drop: " + e.detail.drag);
-  console.log("drop: " + e.detail.drop);
+  console.log("drop: ", e.detail.drag);
+  console.log("drop: ", e.detail.drop);
 });
 element.addEventListener('droppable:end', e => {
-  console.log("dragend: " + e.detail.drag);
+  console.log("dragend: ", e.detail.drag);
 });
 ```
 
