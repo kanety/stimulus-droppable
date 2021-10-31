@@ -35,16 +35,30 @@ Build html as follows:
 ```html
 <div class="st-droppable" data-controller="droppable">
   <p draggable="true">
-    <span>Draggable content 1</span>
+    <span>Draggable 1</span>
   </p>
   <p draggable="true">
-    <span>Draggable content 2</span>
+    <span>Draggable 2</span>
   </p>
   <p data-droppable-target="drop">
-    <span>Droppable content 1</span>
+    <span>Droppable 1</span>
   </p>
   <p data-droppable-target="drop">
-    <span>Droppable content 2</span>
+    <span>Droppable 2</span>
+  </p>
+</div>
+```
+
+### Options
+
+#### helper
+
+Show helper element while dragging:
+
+```html
+<div class="st-droppable" data-controller="droppable">
+  <p data-droppable-target="helper" class="st-droppable__helper" style="display: none;">
+    <span>Now dragging contents...</span>
   </p>
 </div>
 ```

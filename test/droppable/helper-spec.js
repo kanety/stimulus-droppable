@@ -1,4 +1,4 @@
-describe('basic', () => {
+describe('helper', () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <div data-controller="droppable">
@@ -8,6 +8,9 @@ describe('basic', () => {
         <p data-droppable-target="drop">
           <span>Droppable 1</span>
         </p>
+        <p data-droppable-target="helper" style="display: none;">
+          <span>Dragging...</span>
+        </p>
       </div>
     `;
   });
@@ -16,18 +19,15 @@ describe('basic', () => {
     $('[draggable]').dispatchEvent(mockEvent('dragstart'));
   });
 
-  it('drags and drops', () => {
-    $('[draggable]').dispatchEvent(mockEvent('drag'));
-    expect($('[data-droppable-target="drop"]').matches('.st-droppable__drop--ok')).toEqual(true);
+  it('shows helper', () => {
+    expect($('[data-droppable-target="helper"]').style.display).toEqual('');
 
+    $('[draggable]').dispatchEvent(mockEvent('drag', { pageX: 10, pageY: 10 }));
     $('[data-droppable-target="drop"]').dispatchEvent(mockEvent('dragenter'));
-    expect($('[data-droppable-target="drop"]').matches('.st-droppable__drop--over')).toEqual(true);
-
     $('[data-droppable-target="drop"]').dispatchEvent(mockEvent('dragover'));
     $('[data-droppable-target="drop"]').dispatchEvent(mockEvent('dragleave'));
-    expect($('[data-droppable-target="drop"]').matches('.st-droppable__drop--over')).toEqual(false);
-
     $('[data-droppable-target="drop"]').dispatchEvent(mockEvent('drop'));
     $('[draggable]').dispatchEvent(mockEvent('dragend'));
+    expect($('[data-droppable-target="helper"]').style.display).toEqual('none');
   });
 });

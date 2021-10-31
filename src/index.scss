@@ -2,10 +2,14 @@
   [draggable=true] {
     cursor: move;
   }
-  .st-droppable__drop {
+  .st-droppable__drop--ok {
     background-color: #bdf;
   }
-  .st-droppable__drop--current {
+  .st-droppable__drop--over {
     background-color: #fdb;
+  }
+  .st-droppable__helper {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.8);
   }
 }

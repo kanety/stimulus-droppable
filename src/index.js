@@ -3,7 +3,7 @@ import '@kanety/stimulus-static-actions';
 import './index.scss';
 
 export default class extends Controller {
-  static targets = ['drop'];
+  static targets = ['drop', 'helper'];
   static actions = [
     ['element', 'dragstart@document->start']
   ];
@@ -21,10 +21,11 @@ export default class extends Controller {
   }
 
   start(e) {
-    this.currentDrag = this.draggers.find(drag => drag == e.target);
+    this.currentDrag = this.draggers.find(drag => drag.contains(e.target));
     if (this.currentDrag) {
       this.toggleClass(true);
-      this.dispatch('start', { detail: { event: e, drag: this.currentDrag } });
+      this.showHelper(e.pageX, e.pageY);
+      this.dispatch('start', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag } });
       this.context.actionSet.add(this.constructor.dragActions);
     }
   }
@@ -32,8 +33,8 @@ export default class extends Controller {
   enter(e) {
     let drop = this.findCurrentDrop(e.target);
     if (drop) {
-      drop.classList.add('st-droppable__drop--current');
-      this.dispatch('enter', { detail: { event: e, drag: this.currentDrag, drop: drop } });
+      this.toggleOverClass(drop, true)
+      this.dispatch('enter', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag, drop: drop } });
     }
     e.preventDefault();
   }
@@ -41,7 +42,7 @@ export default class extends Controller {
   over(e) {
     let drop = this.findCurrentDrop(e.target);
     if (drop) {
-      this.dispatch('over', { detail: { event: e, drag: this.currentDrag, drop: drop } });
+      this.dispatch('over', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag, drop: drop } });
     }
     e.preventDefault();
   }
@@ -49,25 +50,27 @@ export default class extends Controller {
   leave(e) {
     let drop = this.findCurrentDrop(e.target);
     if (drop) {
-      drop.classList.remove('st-droppable__drop--current');
-      this.dispatch('leave', { detail: { event: e, drag: this.currentDrag, drop: drop } });
+      this.toggleOverClass(drop, false)
+      this.dispatch('leave', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag, drop: drop } });
     }
   }
 
   drag(e) {
-    this.dispatch('drag', { detail: { event: e, drag: this.currentDrag } });
+    this.moveHelper(e.pageX, e.pageY);
+    this.dispatch('drag', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag } });
   }
 
   drop(e) {
     let drop = this.findCurrentDrop(e.target);
     if (drop) {
-      this.dispatch('drop', { detail: { event: e, drag: this.currentDrag, drop: drop } });
+      this.dispatch('drop', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag, drop: drop } });
     }
   }
 
   end(e) {
     this.toggleClass(false);
-    this.dispatch('end', { detail: { event: e, drag: this.currentDrag } });
+    this.hideHelper();
+    this.dispatch('end', { detail: { dataTransfer: e.dataTransfer, drag: this.currentDrag } });
     this.context.actionSet.remove(this.constructor.dragActions);
   }
 
@@ -78,13 +81,41 @@ export default class extends Controller {
   toggleClass(dragging) {
     if (dragging) {
       this.dropTargets.forEach(drop => {
-        drop.classList.add('st-droppable__drop');
+        drop.classList.add('st-droppable__drop--ok');
       });
     } else {
       this.dropTargets.forEach(drop => {
-        drop.classList.remove('st-droppable__drop');
-        drop.classList.remove('st-droppable__drop--current');
+        drop.classList.remove('st-droppable__drop--ok');
+        drop.classList.remove('st-droppable__drop--over');
       });
+    }
+  }
+
+  toggleOverClass(drop, dragging) {
+    if (dragging) {
+      drop.classList.add('st-droppable__drop--over');
+    } else {
+      drop.classList.remove('st-droppable__drop--over');
+    }
+  }
+
+  showHelper(x, y) {
+    if (this.hasHelperTarget) {
+      this.helperTarget.style.display = '';
+      this.moveHelper(x, y);    
+    }
+  }
+
+  moveHelper(x, y) {
+    if (this.hasHelperTarget && x && y) {
+      this.helperTarget.style.top = y + 10 + 'px';
+      this.helperTarget.style.left = x + 'px';
+    }
+  }
+
+  hideHelper() {
+    if (this.hasHelperTarget) {
+      this.helperTarget.style.display = 'none';
     }
   }
 }

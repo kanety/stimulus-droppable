@@ -1,2 +1,2 @@
-.st-droppable [draggable=true]{cursor:move}.st-droppable .st-droppable__drop{background-color:#bdf}.st-droppable .st-droppable__drop--current{background-color:#fdb}
+.st-droppable [draggable=true]{cursor:move}.st-droppable .st-droppable__drop--ok{background-color:#bdf}.st-droppable .st-droppable__drop--over{background-color:#fdb}.st-droppable .st-droppable__helper{background-color:hsla(0,0%,100%,.8);position:absolute}
 /*# sourceMappingURL=index.css.map */
